@@ -227,17 +227,17 @@ float getDepth(vec2 coord) {
 	vec4 addGodRays(vec4 nc, vec2 tx) {
 		float threshold = 0.99 * far;
 //		bool foreground = false;
-		float depthGR = getDepth(tx);
-		if ( (worldTime < 14000 || worldTime > 22000) && (sunPosition.z < 0) && (depthGR < threshold) ) {
+		float depthGODRAYS = getDepth(tx);
+		if ( (worldTime < 14000 || worldTime > 22000) && (sunPosition.z < 0) && (depthGODRAYS < threshold) ) {
 			vec2 lightPos = sunPosition.xy / -sunPosition.z;
 			lightPos.y *= aspectRatio;
 			lightPos = (lightPos + 1.0)/2.0;
 			//vec2 coord = tx;
-			vec2 delta = (tx - lightPos) * GR_DENSITY / float(GR_SAMPLES);
+			vec2 delta = (tx - lightPos) * GODRAYS_DENSITY / float(GODRAYS_SAMPLES);
 			float decay = -sunPosition.z / 100.0;
-			vec3 colorGR = vec3(0.0);
+			vec3 colorGODRAYS = vec3(0.0);
 			
-			for (int i = 0; i < GR_SAMPLES; i++) {
+			for (int i = 0; i < GODRAYS_SAMPLES; i++) {
 				tx -= delta;
 				if (tx.x < 0.0 || tx.x > 1.0) {
 					if (tx.y < 0.0 || tx.y > 1.0) {
@@ -252,10 +252,10 @@ float getDepth(vec2 coord) {
 				if (distance(tx, lightPos) > 0.05) {
 					sample *= 0.2;
 				}
-					colorGR += sample;
-					decay *= GR_DECAY;
+					colorGODRAYS += sample;
+					decay *= GODRAYS_DECAY;
 			}
-			return (nc + GR_EXPOSURE * vec4(colorGR, 0.0));
+			return (nc + GODRAYS_EXPOSURE * vec4(colorGODRAYS, 0.0));
         } else {
 			return nc;
 		}
@@ -304,7 +304,7 @@ float getDepth(vec2 coord) {
 #ifdef CEL_SHADING
 	float getCellShaderFactor(vec2 coord) {
 		float d = getDepth(coord);
-		vec3 n = normalize(vec3(getDepth(coord+vec2(CEL_THICKNESS,0.0))-d,getDepth(coord+vec2(0.0,CEL_THICKNESS))-d , CEL_THRESHOLD));
+		vec3 n = normalize(vec3(getDepth(coord+vec2(CEL_SHADING_THICKNESS,0.0))-d,getDepth(coord+vec2(0.0,CEL_SHADING_THICKNESS))-d , CEL_SHADING_THRESHOLD));
 		return n.z; //clamp(n.z*3.0,0.0,1.0);
 	}
 #endif
