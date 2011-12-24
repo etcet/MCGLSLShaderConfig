@@ -107,6 +107,20 @@ public class ConfigUI extends javax.swing.JFrame {
             comment("gbuffers_water.vsh", "CURVY_WORLD");
         }
         
+        boolean acid = SEL_ACID.isSelected();
+        if (acid) {
+            uncomment("gbuffers_terrain.vsh", "ACID");
+            uncomment("gbuffers_textured.vsh", "ACID");
+            uncomment("gbuffers_textured_lit.vsh", "ACID");
+            uncomment("gbuffers_water.vsh", "ACID");
+        }
+        else {
+            comment("gbuffers_terrain.vsh", "ACID");
+            comment("gbuffers_textured.vsh", "ACID");
+            comment("gbuffers_textured_lit.vsh", "ACID");
+            comment("gbuffers_water.vsh", "ACID");
+        }
+        
         boolean bump_mapping = SEL_BUMP.isSelected();
         if (bump_mapping) {
             uncomment("composite.fsh", "BUMP_MAPPING");
@@ -416,6 +430,10 @@ public class ConfigUI extends javax.swing.JFrame {
         }
         TEXT_WORLD_R.setText(getValue("gbuffers_terrain.vsh", "CURVY_WORLD_RADIUS"));
         TEXT_WORLD_R2.setText(getValue("gbuffers_terrain.vsh", "CURVY_WORLD_RADIUS_SQUARED"));
+        
+        if (isUncommented("gbuffers_terrain.vsh", "ACID")) {
+            SEL_ACID.setSelected(true);
+        }
 
 
         if (isUncommented("composite.fsh", "BUMP_MAPPING")) {
@@ -553,6 +571,7 @@ public class ConfigUI extends javax.swing.JFrame {
         jLabel42 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
         jSeparator2 = new javax.swing.JSeparator();
+        SEL_ACID = new javax.swing.JCheckBox();
         BUT_SAVE = new javax.swing.JButton();
         BUT_EXIT = new javax.swing.JButton();
         BUT_RESET = new javax.swing.JButton();
@@ -814,6 +833,14 @@ public class ConfigUI extends javax.swing.JFrame {
 
         jLabel42.setText("You can use any GLSL function.");
 
+        SEL_ACID.setText("Acid.");
+        SEL_ACID.setToolTipText("Turn on, tune in, drop out");
+        SEL_ACID.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                SEL_ACIDActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -824,7 +851,10 @@ public class ConfigUI extends javax.swing.JFrame {
                     .addComponent(jSeparator2, javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(SEL_CURVE)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(SEL_CURVE)
+                                .addGap(18, 18, 18)
+                                .addComponent(SEL_ACID))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(17, 17, 17)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1061,7 +1091,8 @@ public class ConfigUI extends javax.swing.JFrame {
                     .addComponent(jLabel29)
                     .addComponent(jLabel32)
                     .addComponent(jLabel35)
-                    .addComponent(jLabel40))
+                    .addComponent(jLabel40)
+                    .addComponent(SEL_ACID))
                 .addGap(9, 9, 9)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -1266,6 +1297,7 @@ private void BUT_EXITActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
         }
         TEXT_WORLD_R.setText("30.0");
         TEXT_WORLD_R2.setText("10000.0");
+        SEL_ACID.setSelected(false);
 
         if (SEL_BUMP.isSelected()) {
             SEL_BUMP.doClick();
@@ -1276,6 +1308,7 @@ private void BUT_EXITActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
     private void SEL_CURVEActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SEL_CURVEActionPerformed
         TEXT_WORLD_R.setEnabled(SEL_CURVE.isSelected());
         TEXT_WORLD_R2.setEnabled(SEL_CURVE.isSelected());
+        SEL_ACID.setSelected(!SEL_CURVE.isSelected());
     }//GEN-LAST:event_SEL_CURVEActionPerformed
 
     private void SEL_CELActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SEL_CELActionPerformed
@@ -1294,6 +1327,12 @@ private void BUT_EXITActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
     private void SEL_DOFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SEL_DOFActionPerformed
         SEL_HQ_BLUR.setEnabled(SEL_DOF.isSelected());
     }//GEN-LAST:event_SEL_DOFActionPerformed
+
+    private void SEL_ACIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SEL_ACIDActionPerformed
+        if (SEL_CURVE.isSelected()) {
+            SEL_CURVE.doClick();
+        }
+    }//GEN-LAST:event_SEL_ACIDActionPerformed
 
     /**
      * @param args the command line arguments
@@ -1339,6 +1378,7 @@ private void BUT_EXITActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
     private javax.swing.JRadioButton RADIO_256;
     private javax.swing.JRadioButton RADIO_32;
     private javax.swing.JRadioButton RADIO_64;
+    private javax.swing.JCheckBox SEL_ACID;
     private javax.swing.JCheckBox SEL_BLOOM;
     private javax.swing.JCheckBox SEL_BUMP;
     private javax.swing.JCheckBox SEL_CEL;

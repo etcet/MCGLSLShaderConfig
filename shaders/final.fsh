@@ -12,23 +12,23 @@ Bug Fixes by Kool_Kat.
 */
 
 // Place two leading Slashes in front of the following '#define' lines in order to disable an option.
-#define USE_DOF
+//#define USE_DOF
 //#define GODRAYS
 //#define GODRAYS_EXPOSURE 0.2
 //#define GODRAYS_SAMPLES 32
 //#define GODRAYS_DECAY 0.95
 //#define GODRAYS_DENSITY 0.5
-#define BLOOM
-#define BLOOM_AMOUNT 9.5
-#define BLOOM_RANGE 4
-#define CEL_SHADING
-#define CEL_SHADING_THRESHOLD 0.4
-#define CEL_SHADING_THICKNESS 0.004
-//#define USE_HIGH_QUALITY_BLUR
-//#define CROSSPROCESS
-//#define CROSSPROCESS_R color.r * 1.3 + 0.01
-//#define CROSSPROCESS_G color.g * 1.2
-//#define CROSSPROCESS_B color.b * 0.75 + 0.10 
+//#define BLOOM
+//#define BLOOM_AMOUNT 9.5
+//#define BLOOM_RANGE 4
+//#define CEL_SHADING
+//#define CEL_SHADING_THRESHOLD 0.4
+//#define CEL_SHADING_THICKNESS 0.004
+#define USE_HIGH_QUALITY_BLUR
+#define CROSSPROCESS
+#define CROSSPROCESS_R color.r*2.0
+#define CROSSPROCESS_G color.g*1.2
+#define CROSSPROCESS_B color.b*0.75+0.10
 
 // DOF Constants - DO NOT CHANGE
 // HYPERFOCAL = (Focal Distance ^ 2)/(Circle of Confusion * F Stop) + Focal Distance
