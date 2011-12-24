@@ -14,7 +14,7 @@ Bug Fixes by Kool_Kat.
 // Place two leading Slashes in front of the following '#define' lines in order to disable an option.
 #define USE_DOF
 //#define GODRAYS
-//#define GODRAYS_EXPOSURE 0.2
+//#define GODRAYS_EXPOSURE 0.5
 //#define GODRAYS_SAMPLES 32
 //#define GODRAYS_DECAY 0.95
 //#define GODRAYS_DENSITY 0.5
@@ -26,6 +26,9 @@ Bug Fixes by Kool_Kat.
 #define CEL_SHADING_THICKNESS 0.004
 //#define USE_HIGH_QUALITY_BLUR
 //#define CROSSPROCESS
+//#define CROSSPROCESS_R color.r * 1.3 + 0.01
+//#define CROSSPROCESS_G color.g * 1.2
+//#define CROSSPROCESS_B color.b * 0.75 + 0.10
 
 // DOF Constants - DO NOT CHANGE
 // HYPERFOCAL = (Focal Distance ^ 2)/(Circle of Confusion * F Stop) + Focal Distance
@@ -227,15 +230,15 @@ float getDepth(vec2 coord) {
 	vec4 addGodRays(vec4 nc, vec2 tx) {
 		float threshold = 0.99 * far;
 //		bool foreground = false;
-		float depthGODRAYS = getDepth(tx);
-		if ( (worldTime < 14000 || worldTime > 22000) && (sunPosition.z < 0) && (depthGODRAYS < threshold) ) {
+		float depthGD = getDepth(tx);
+		if ( (worldTime < 14000 || worldTime > 22000) && (sunPosition.z < 0) && (depthGD < threshold) ) {
 			vec2 lightPos = sunPosition.xy / -sunPosition.z;
 			lightPos.y *= aspectRatio;
 			lightPos = (lightPos + 1.0)/2.0;
 			//vec2 coord = tx;
 			vec2 delta = (tx - lightPos) * GODRAYS_DENSITY / float(GODRAYS_SAMPLES);
 			float decay = -sunPosition.z / 100.0;
-			vec3 colorGODRAYS = vec3(0.0);
+			vec3 colorGD = vec3(0.0);
 			
 			for (int i = 0; i < GODRAYS_SAMPLES; i++) {
 				tx -= delta;
@@ -252,10 +255,10 @@ float getDepth(vec2 coord) {
 				if (distance(tx, lightPos) > 0.05) {
 					sample *= 0.2;
 				}
-					colorGODRAYS += sample;
+					colorGD += sample;
 					decay *= GODRAYS_DECAY;
 			}
-			return (nc + GODRAYS_EXPOSURE * vec4(colorGODRAYS, 0.0));
+			return (nc + GODRAYS_EXPOSURE * vec4(colorGD, 0.0));
         } else {
 			return nc;
 		}
@@ -352,9 +355,9 @@ void main() {
 #endif
 
 #ifdef CROSSPROCESS
-	color.r = color.r*1.3+0.01;
-	color.g = color.g*1.2;
-	color.b = color.b*0.75+0.10;
+	color.r = CROSSPROCESS_R;
+	color.g = CROSSPROCESS_G;
+	color.b = CROSSPROCESS_B;
 #endif
 
 	gl_FragColor = color;
