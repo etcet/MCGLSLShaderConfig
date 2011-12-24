@@ -1,8 +1,8 @@
 #version 120
 
 //#define CURVY_WORLD
-#define CURVY_WORLD_RADIUS 40.0
-#define CURVY_WORLD_RADIUS_SQUARED 10000.0
+//#define CURVY_WORLD_RADIUS 40.0
+//#define CURVY_WORLD_RADIUS_SQUARED 10000.0
 
 varying vec4 color;
 varying vec4 texcoord;

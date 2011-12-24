@@ -227,15 +227,15 @@ float getDepth(vec2 coord) {
 	vec4 addGodRays(vec4 nc, vec2 tx) {
 		float threshold = 0.99 * far;
 //		bool foreground = false;
-		float depthGODRAYS = getDepth(tx);
-		if ( (worldTime < 14000 || worldTime > 22000) && (sunPosition.z < 0) && (depthGODRAYS < threshold) ) {
+		float depthGD = getDepth(tx);
+		if ( (worldTime < 14000 || worldTime > 22000) && (sunPosition.z < 0) && (depthGD < threshold) ) {
 			vec2 lightPos = sunPosition.xy / -sunPosition.z;
 			lightPos.y *= aspectRatio;
 			lightPos = (lightPos + 1.0)/2.0;
 			//vec2 coord = tx;
 			vec2 delta = (tx - lightPos) * GODRAYS_DENSITY / float(GODRAYS_SAMPLES);
 			float decay = -sunPosition.z / 100.0;
-			vec3 colorGODRAYS = vec3(0.0);
+			vec3 colorGD = vec3(0.0);
 			
 			for (int i = 0; i < GODRAYS_SAMPLES; i++) {
 				tx -= delta;
@@ -252,10 +252,10 @@ float getDepth(vec2 coord) {
 				if (distance(tx, lightPos) > 0.05) {
 					sample *= 0.2;
 				}
-					colorGODRAYS += sample;
+					colorGD += sample;
 					decay *= GODRAYS_DECAY;
 			}
-			return (nc + GODRAYS_EXPOSURE * vec4(colorGODRAYS, 0.0));
+			return (nc + GODRAYS_EXPOSURE * vec4(colorGD, 0.0));
         } else {
 			return nc;
 		}
