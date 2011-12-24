@@ -1,9 +1,9 @@
 #version 120
 
 //#define BUMP_MAPPING
-//#define WAVY_WHEAT
-//#define WAVY_GRASS
-//#define WAVY_LEAVES
+#define WAVY_WHEAT
+#define WAVY_GRASS
+#define WAVY_LEAVES
 //#define CURVY_WORLD
 //#define CURVY_WORLD_RADIUS 30.0
 //#define CURVY_WORLD_RADIUS_SQUARED 10000.0
