@@ -19,38 +19,38 @@ import java.io.*;
 public class ConfigUI extends javax.swing.JFrame {
   
     public void save() {
-        boolean dof = jCheckBox1.isSelected();
+        boolean dof = SEL_DOF.isSelected();
         if (dof) {
             uncomment("final.fsh", "USE_DOF");
         } else {
             comment("final.fsh", "USE_DOF");
         }
         
-        boolean hq_blur = jCheckBox5.isSelected();
+        boolean hq_blur = SEL_HQ_BLUR.isSelected();
         if (hq_blur) {
             uncomment("final.fsh", "USE_HIGH_QUALITY_BLUR");
         } else {
             comment("final.fsh", "USE_HIGH_QUALITY_BLUR");
         }
         
-        boolean god_rays = jCheckBox2.isSelected();
-        /*float godrays_exposure = Float.parseFloat(jTextField7.getText());
-        int godrays_samples = Integer.parseInt(jTextField8.getText());
-        float godrays_decay = Float.parseFloat(jTextField9.getText());
-        float godrays_density = Float.parseFloat(jTextField10.getText());*/
+        boolean god_rays = SEL_GODRAYS.isSelected();
+        float godrays_exposure = Float.parseFloat(TEXT_GOD_EXP.getText());
+        int godrays_samples = Integer.parseInt(TEXT_GOD_SAMPLES.getText());
+        float godrays_decay = Float.parseFloat(TEXT_GOD_DECAY.getText());
+        float godrays_density = Float.parseFloat(TEXT_GOD_DENS.getText());
         if (god_rays) {
             uncomment("final.fsh", "GODRAYS");
-            /*setValue("final.fsh", "GODRAYS_EXPOSURE", Float.toString(godrays_exposure));
-            setValue("final.fsh", "GODRAYS_SAMPLES", Float.toString(godrays_samples));
+            setValue("final.fsh", "GODRAYS_EXPOSURE", Float.toString(godrays_exposure));
+            setValue("final.fsh", "GODRAYS_SAMPLES", Integer.toString(godrays_samples));
             setValue("final.fsh", "GODRAYS_DECAY", Float.toString(godrays_decay));
-            setValue("final.fsh", "GODRAYS_DENSITY", Float.toString(godrays_density));*/
+            setValue("final.fsh", "GODRAYS_DENSITY", Float.toString(godrays_density));
         } else {
             comment("final.fsh", "GODRAYS");
         }
         
-        boolean bloom = jCheckBox3.isSelected();
-        float bloom_amount = Float.parseFloat(jTextField1.getText());
-        int bloom_range = Integer.parseInt(jTextField2.getText());
+        boolean bloom = SEL_BLOOM.isSelected();
+        float bloom_amount = Float.parseFloat(TEXT_BLOOM_AMT.getText());
+        int bloom_range = Integer.parseInt(TEXT_BLOOM_RANGE.getText());
         if (bloom) {
             uncomment("final.fsh", "BLOOM");
             setValue("final.fsh", "BLOOM_AMOUNT", Float.toString(bloom_amount));
@@ -59,9 +59,9 @@ public class ConfigUI extends javax.swing.JFrame {
             comment("final.fsh", "BLOOM");
         }
     
-        boolean celshading = jCheckBox4.isSelected();
-        float cel_threshold = Float.parseFloat(jTextField3.getText());
-        float cel_thickness = Float.parseFloat(jTextField4.getText());
+        boolean celshading = SEL_CEL.isSelected();
+        float cel_threshold = Float.parseFloat(TEXT_CEL_THRES.getText());
+        float cel_thickness = Float.parseFloat(TEXT_CEL_THICK.getText());
         if (celshading) {
             uncomment("final.fsh", "CEL_SHADING");
             setValue("final.fsh", "CEL_SHADING_THRESHOLD", Float.toString(cel_threshold));
@@ -71,16 +71,22 @@ public class ConfigUI extends javax.swing.JFrame {
             comment("final.fsh", "CEL_SHADING");
         }
         
-        boolean cross_process = jCheckBox9.isSelected();
+        boolean cross_process = SEL_COLOR.isSelected();
+        String cross_process_r = TEXT_COLOR_R.getText();
+        String cross_process_g = TEXT_COLOR_G.getText();
+        String cross_process_b = TEXT_COLOR_B.getText();
         if (cross_process) {
             uncomment("final.fsh", "CROSSPROCESS");
+            setValue("final.fsh", "CROSSPROCESS_R", cross_process_r);
+            setValue("final.fsh", "CROSSPROCESS_G", cross_process_g);
+            setValue("final.fsh", "CROSSPROCESS_B", cross_process_b);
         } else {
             comment("final.fsh", "CROSSPROCESS");
         }
         
-        boolean world_curve = jCheckBox10.isSelected();
-        float world_radius = Float.parseFloat(jTextField5.getText());
-        float world_radius_squared = Float.parseFloat(jTextField6.getText());
+        boolean world_curve = SEL_CURVE.isSelected();
+        float world_radius = Float.parseFloat(TEXT_WORLD_R.getText());
+        float world_radius_squared = Float.parseFloat(TEXT_WORLD_R2.getText());
         if (world_curve) {
             uncomment("gbuffers_terrain.vsh", "CURVY_WORLD");
             uncomment("gbuffers_textured.vsh", "CURVY_WORLD");
@@ -101,7 +107,7 @@ public class ConfigUI extends javax.swing.JFrame {
             comment("gbuffers_water.vsh", "CURVY_WORLD");
         }
         
-        boolean bump_mapping = jCheckBox11.isSelected();
+        boolean bump_mapping = SEL_BUMP.isSelected();
         if (bump_mapping) {
             uncomment("composite.fsh", "BUMP_MAPPING");
             uncomment("composite.vsh", "BUMP_MAPPING");
@@ -129,50 +135,50 @@ public class ConfigUI extends javax.swing.JFrame {
             comment("gbuffers_weather.fsh", "BUMP_MAPPING");
             comment("gbuffers_weather.vsh", "BUMP_MAPPING");
         }
-        boolean bump16 = jRadioButton1.isSelected();
+        boolean bump16 = RADIO_16.isSelected();
         if (bump16) {
             uncomment("gbuffers_terrain.fsh", "BUMP_16");
         } else {
             comment("gbuffers_terrain.fsh", "BUMP_16");
         }
-        boolean bump32 = jRadioButton2.isSelected();
+        boolean bump32 = RADIO_32.isSelected();
         if (bump32) {
             uncomment("gbuffers_terrain.fsh", "BUMP_32");
         } else {
             comment("gbuffers_terrain.fsh", "BUMP_32");
         }
-        boolean bump64 = jRadioButton3.isSelected();
+        boolean bump64 = RADIO_64.isSelected();
         if (bump64) {
             uncomment("gbuffers_terrain.fsh", "BUMP_64");
         } else {
             comment("gbuffers_terrain.fsh", "BUMP_64");
         }
-        boolean bump128 = jRadioButton4.isSelected();
+        boolean bump128 = RADIO_128.isSelected();
         if (bump128) {
             uncomment("gbuffers_terrain.fsh", "BUMP_128");
         } else {
             comment("gbuffers_terrain.fsh", "BUMP_128");
         }
-        boolean bump256 = jRadioButton5.isSelected();
+        boolean bump256 = RADIO_256.isSelected();
         if (bump256) {
             uncomment("gbuffers_terrain.fsh", "BUMP_256");
         } else {
             comment("gbuffers_terrain.fsh", "BUMP_256");
         }
         
-        boolean waving_grass = jCheckBox6.isSelected();
+        boolean waving_grass = SEL_GRASS.isSelected();
         if (waving_grass) {
             uncomment("gbuffers_terrain.vsh", "WAVY_GRASS");
         } else {
             comment("gbuffers_terrain.vsh", "WAVY_GRASS");
         }
-        boolean waving_wheat = jCheckBox7.isSelected();
+        boolean waving_wheat = SEL_WHEAT.isSelected();
         if (waving_wheat) {
             uncomment("gbuffers_terrain.vsh", "WAVY_WHEAT");
         } else {
             comment("gbuffers_terrain.vsh", "WAVY_WHEAT");
         }
-        boolean waving_leaves = jCheckBox8.isSelected();
+        boolean waving_leaves = SEL_LEAVES.isSelected();
         if (waving_leaves) {
             uncomment("gbuffers_terrain.vsh", "WAVY_LEAVES");
         } else {
@@ -212,7 +218,6 @@ public class ConfigUI extends javax.swing.JFrame {
         StringBuilder contents = new StringBuilder();
 
         try {
-
             BufferedReader input = new BufferedReader(new FileReader(file));
             try {
                 String line = null;
@@ -230,7 +235,7 @@ public class ConfigUI extends javax.swing.JFrame {
         } catch (IOException ex) {
             ex.printStackTrace();
         }
-        System.out.println(contents.toString());
+        //System.out.println(contents.toString());
         try {
             setContents(file, contents.toString());
         } catch (Exception e) {
@@ -244,7 +249,6 @@ public class ConfigUI extends javax.swing.JFrame {
         StringBuilder contents = new StringBuilder();
 
         try {
-
             BufferedReader input = new BufferedReader(new FileReader(file));
             try {
                 String line = null;
@@ -275,7 +279,6 @@ public class ConfigUI extends javax.swing.JFrame {
         StringBuilder contents = new StringBuilder();
 
         try {
-
             BufferedReader input = new BufferedReader(new FileReader(file));
             try {
                 String line = null;
@@ -299,9 +302,136 @@ public class ConfigUI extends javax.swing.JFrame {
         catch (Exception e) {
         }
     }
+    
+    private boolean isUncommented(String filename, String define) {
+        String match_start = "#define " + define;
+        filename = "shaders/" + filename;
+        File file = new File(filename);
+        StringBuilder contents = new StringBuilder();
+        Boolean found = false;
+        
+        try {
+            BufferedReader input = new BufferedReader(new FileReader(file));
+            try {
+                String line = null;
+                while ((line = input.readLine()) != null) {
+                    if (line.startsWith(match_start)) {
+                        found = true;
+                    }
+                    contents.append(line);
+                    contents.append(System.getProperty("line.separator"));
+                }
+            } finally {
+                input.close();
+            }
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+        System.out.println(contents.toString());
+        try {
+            setContents(file, contents.toString());
+        }
+        catch (Exception e) {
+        }
+        return found;
+    }
+    
+    private String getValue(String filename, String define) {
+        String match_start = "#define " + define;
+        String or_match = "//" + match_start;
+        filename = "shaders/" + filename;
+        File file = new File(filename);
+        StringBuilder contents = new StringBuilder();
+        String value = "";
+
+        try {
+            BufferedReader input = new BufferedReader(new FileReader(file));
+            try {
+                String line = null;
+                while ((line = input.readLine()) != null) {
+                    if (line.startsWith(match_start) || line.startsWith(or_match)) {
+                        String[] line_contents = line.split(" ");
+                        for (int i = 2 ; i < line_contents.length; i++) {
+                            value += line_contents[i];
+                        }
+                        return value;
+                    }
+                }
+            } finally {
+                input.close();
+            }
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+        //System.out.println(contents.toString());
+        try {
+            setContents(file, contents.toString());
+        } catch (Exception e) {
+        }
+        return value;
+    }
+    
+    private void readValuesFromShaders() {
+        if (isUncommented("final.fsh", "USE_DOF")) {
+            SEL_DOF.doClick();
+        }
+        SEL_HQ_BLUR.setSelected(isUncommented("final.fsh", "USE_HIGH_QUALITY_BLUR"));
+
+        if (isUncommented("final.fsh", "GODRAYS")) {
+            SEL_GODRAYS.doClick();
+        }
+        TEXT_GOD_EXP.setText(getValue("final.fsh", "GODRAYS_DENSITY"));
+        TEXT_GOD_SAMPLES.setText(getValue("final.fsh", "GODRAYS_SAMPLES"));
+        TEXT_GOD_DECAY.setText(getValue("final.fsh", "GODRAYS_DECAY"));
+        TEXT_GOD_DENS.setText(getValue("final.fsh", "GODRAYS_DENSITY"));
+
+        if (isUncommented("final.fsh", "BLOOM")) {
+            SEL_BLOOM.doClick();
+        }
+        TEXT_BLOOM_AMT.setText(getValue("final.fsh", "BLOOM_AMOUNT"));
+        TEXT_BLOOM_RANGE.setText(getValue("final.fsh", "BLOOM_RANGE"));
+
+
+        if (isUncommented("final.fsh", "CEL_SHADING")) {
+            SEL_CEL.doClick();
+        }
+        TEXT_CEL_THRES.setText(getValue("final.fsh", "CEL_SHADING_THRESHOLD"));
+        TEXT_CEL_THICK.setText(getValue("final.fsh", "CEL_SHADING_THICKNESS"));
+
+        SEL_GRASS.setSelected(isUncommented("gbuffers_terrain.vsh", "WAVY_GRASS"));
+        SEL_WHEAT.setSelected(isUncommented("gbuffers_terrain.vsh", "WAVY_WHEAT"));
+        SEL_LEAVES.setSelected(isUncommented("gbuffers_terrain.vsh", "WAVY_LEAVES"));
+
+
+        if (isUncommented("final.fsh", "CROSSPROCESS")) {
+            SEL_COLOR.doClick();
+        }
+        TEXT_COLOR_R.setText(getValue("final.fsh", "CROSSPROCESS_R"));
+        TEXT_COLOR_G.setText(getValue("final.fsh", "CROSSPROCESS_G"));
+        TEXT_COLOR_B.setText(getValue("final.fsh", "CROSSPROCESS_B"));
+
+
+        if (isUncommented("gbuffers_terrain.vsh", "CURVY_WORLD")) {
+            SEL_CURVE.doClick();
+        }
+        TEXT_WORLD_R.setText(getValue("gbuffers_terrain.vsh", "CURVY_WORLD_RADIUS"));
+        TEXT_WORLD_R2.setText(getValue("gbuffers_terrain.vsh", "CURVY_WORLD_RADIUS_SQUARED"));
+
+
+        if (isUncommented("composite.fsh", "BUMP_MAPPING")) {
+            SEL_BUMP.doClick();
+        }
+        RADIO_16.setSelected(isUncommented("gbuffers_terrain.fsh", "BUMP_16"));
+        RADIO_32.setSelected(isUncommented("gbuffers_terrain.fsh", "BUMP_32"));
+        RADIO_64.setSelected(isUncommented("gbuffers_terrain.fsh", "BUMP_64"));
+        RADIO_128.setSelected(isUncommented("gbuffers_terrain.fsh", "BUMP_128"));
+        RADIO_256.setSelected(isUncommented("gbuffers_terrain.fsh", "BUMP_256"));
+    }
+            
     /** Creates new form ConfigUI */
     public ConfigUI() {
         initComponents();
+        readValuesFromShaders();
         class FloatVerifier extends javax.swing.InputVerifier {
             public boolean verify(javax.swing.JComponent input) {   // can use with any JComponent
                 javax.swing.JTextField tf = (javax.swing.JTextField) input;   // cast to TextField to allow getText() on it
@@ -326,16 +456,16 @@ public class ConfigUI extends javax.swing.JFrame {
                 }
             }
         }
-        jTextField1.setInputVerifier(new FloatVerifier());
-        jTextField2.setInputVerifier(new IntVerifier());
-        jTextField3.setInputVerifier(new FloatVerifier());
-        jTextField4.setInputVerifier(new FloatVerifier());
-        jTextField5.setInputVerifier(new FloatVerifier());
-        jTextField6.setInputVerifier(new FloatVerifier());
-        /*jTextField7.setInputVerifier(new FloatVerifier());
-        jTextField8.setInputVerifier(new IntVerifier());
-        jTextField9.setInputVerifier(new FloatVerifier());
-        jTextField10.setInputVerifier(new FloatVerifier());*/
+        TEXT_BLOOM_AMT.setInputVerifier(new FloatVerifier());
+        TEXT_BLOOM_RANGE.setInputVerifier(new IntVerifier());
+        TEXT_CEL_THRES.setInputVerifier(new FloatVerifier());
+        TEXT_CEL_THICK.setInputVerifier(new FloatVerifier());
+        TEXT_WORLD_R.setInputVerifier(new FloatVerifier());
+        TEXT_WORLD_R2.setInputVerifier(new FloatVerifier());
+        TEXT_GOD_EXP.setInputVerifier(new FloatVerifier());
+        TEXT_GOD_SAMPLES.setInputVerifier(new IntVerifier());
+        TEXT_GOD_DECAY.setInputVerifier(new FloatVerifier());
+        TEXT_GOD_DENS.setInputVerifier(new FloatVerifier());
     }
 
     /** This method is called from within the constructor to
@@ -349,44 +479,44 @@ public class ConfigUI extends javax.swing.JFrame {
 
         buttonGroup1 = new javax.swing.ButtonGroup();
         jPanel1 = new javax.swing.JPanel();
-        jCheckBox1 = new javax.swing.JCheckBox();
-        jCheckBox5 = new javax.swing.JCheckBox();
-        jRadioButton1 = new javax.swing.JRadioButton();
-        jRadioButton2 = new javax.swing.JRadioButton();
-        jRadioButton3 = new javax.swing.JRadioButton();
-        jRadioButton4 = new javax.swing.JRadioButton();
-        jRadioButton5 = new javax.swing.JRadioButton();
-        jCheckBox2 = new javax.swing.JCheckBox();
-        jCheckBox3 = new javax.swing.JCheckBox();
+        SEL_DOF = new javax.swing.JCheckBox();
+        SEL_HQ_BLUR = new javax.swing.JCheckBox();
+        RADIO_16 = new javax.swing.JRadioButton();
+        RADIO_32 = new javax.swing.JRadioButton();
+        RADIO_64 = new javax.swing.JRadioButton();
+        RADIO_128 = new javax.swing.JRadioButton();
+        RADIO_256 = new javax.swing.JRadioButton();
+        SEL_GODRAYS = new javax.swing.JCheckBox();
+        SEL_BLOOM = new javax.swing.JCheckBox();
         jLabel1 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        TEXT_BLOOM_AMT = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
-        jCheckBox4 = new javax.swing.JCheckBox();
+        TEXT_BLOOM_RANGE = new javax.swing.JTextField();
+        SEL_CEL = new javax.swing.JCheckBox();
         jLabel3 = new javax.swing.JLabel();
-        jTextField3 = new javax.swing.JTextField();
+        TEXT_CEL_THRES = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
-        jTextField4 = new javax.swing.JTextField();
-        jCheckBox6 = new javax.swing.JCheckBox();
-        jCheckBox7 = new javax.swing.JCheckBox();
-        jCheckBox8 = new javax.swing.JCheckBox();
-        jCheckBox9 = new javax.swing.JCheckBox();
-        jCheckBox10 = new javax.swing.JCheckBox();
+        TEXT_CEL_THICK = new javax.swing.JTextField();
+        SEL_GRASS = new javax.swing.JCheckBox();
+        SEL_WHEAT = new javax.swing.JCheckBox();
+        SEL_LEAVES = new javax.swing.JCheckBox();
+        SEL_COLOR = new javax.swing.JCheckBox();
+        SEL_CURVE = new javax.swing.JCheckBox();
         jLabel6 = new javax.swing.JLabel();
-        jTextField5 = new javax.swing.JTextField();
+        TEXT_WORLD_R = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
-        jTextField6 = new javax.swing.JTextField();
+        TEXT_WORLD_R2 = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
-        jTextField7 = new javax.swing.JTextField();
-        jTextField8 = new javax.swing.JTextField();
-        jTextField9 = new javax.swing.JTextField();
-        jTextField10 = new javax.swing.JTextField();
-        jCheckBox11 = new javax.swing.JCheckBox();
+        TEXT_GOD_EXP = new javax.swing.JTextField();
+        TEXT_GOD_SAMPLES = new javax.swing.JTextField();
+        TEXT_GOD_DECAY = new javax.swing.JTextField();
+        TEXT_GOD_DENS = new javax.swing.JTextField();
+        SEL_BUMP = new javax.swing.JCheckBox();
         jLabel13 = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
@@ -396,11 +526,11 @@ public class ConfigUI extends javax.swing.JFrame {
         jLabel19 = new javax.swing.JLabel();
         jLabel20 = new javax.swing.JLabel();
         jLabel21 = new javax.swing.JLabel();
-        jTextField11 = new javax.swing.JTextField();
+        TEXT_COLOR_R = new javax.swing.JTextField();
         jLabel22 = new javax.swing.JLabel();
-        jTextField12 = new javax.swing.JTextField();
+        TEXT_COLOR_G = new javax.swing.JTextField();
         jLabel23 = new javax.swing.JLabel();
-        jTextField13 = new javax.swing.JTextField();
+        TEXT_COLOR_B = new javax.swing.JTextField();
         jLabel24 = new javax.swing.JLabel();
         jTextField14 = new javax.swing.JTextField();
         jLabel25 = new javax.swing.JLabel();
@@ -421,9 +551,11 @@ public class ConfigUI extends javax.swing.JFrame {
         jLabel40 = new javax.swing.JLabel();
         jLabel41 = new javax.swing.JLabel();
         jLabel42 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        jSeparator1 = new javax.swing.JSeparator();
+        jSeparator2 = new javax.swing.JSeparator();
+        BUT_SAVE = new javax.swing.JButton();
+        BUT_EXIT = new javax.swing.JButton();
+        BUT_RESET = new javax.swing.JButton();
         jLabel43 = new javax.swing.JLabel();
         jLabel44 = new javax.swing.JLabel();
 
@@ -431,125 +563,147 @@ public class ConfigUI extends javax.swing.JFrame {
         setTitle("Minecraft GLSL Shaders Mod Configuration");
 
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        jPanel1.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        jPanel1.setFont(new java.awt.Font("Times New Roman", 1, 14));
 
-        jCheckBox1.setSelected(true);
-        jCheckBox1.setText("Depth of Field");
-        jCheckBox1.setToolTipText("Focus the camera at whatever you're looking at.");
-
-        jCheckBox5.setText("High Quality Blur");
-        jCheckBox5.setToolTipText("Better blurring, at the cost of frames per second.");
-        jCheckBox5.addActionListener(new java.awt.event.ActionListener() {
+        SEL_DOF.setText("Depth of Field");
+        SEL_DOF.setToolTipText("Focus the camera at whatever you're looking at.");
+        SEL_DOF.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jCheckBox5ActionPerformed(evt);
+                SEL_DOFActionPerformed(evt);
             }
         });
 
-        buttonGroup1.add(jRadioButton1);
-        jRadioButton1.setText("16x16");
-        jRadioButton1.addActionListener(new java.awt.event.ActionListener() {
+        SEL_HQ_BLUR.setText("High Quality Blur");
+        SEL_HQ_BLUR.setToolTipText("Better blurring, at the cost of frames per second.");
+        SEL_HQ_BLUR.setEnabled(false);
+        SEL_HQ_BLUR.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jRadioButton1ActionPerformed(evt);
+                SEL_HQ_BLURActionPerformed(evt);
             }
         });
 
-        buttonGroup1.add(jRadioButton2);
-        jRadioButton2.setText("32x32");
-
-        buttonGroup1.add(jRadioButton3);
-        jRadioButton3.setText("64x64");
-
-        buttonGroup1.add(jRadioButton4);
-        jRadioButton4.setSelected(true);
-        jRadioButton4.setText("128x128");
-
-        buttonGroup1.add(jRadioButton5);
-        jRadioButton5.setText("256x256");
-
-        jCheckBox2.setText("God Rays");
-        jCheckBox2.setToolTipText("See light shafts from the sun (turn down bloom amount to less than 5 to see)");
-        jCheckBox2.addActionListener(new java.awt.event.ActionListener() {
+        buttonGroup1.add(RADIO_16);
+        RADIO_16.setText("16x16");
+        RADIO_16.setEnabled(false);
+        RADIO_16.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jCheckBox2ActionPerformed(evt);
+                RADIO_16ActionPerformed(evt);
             }
         });
 
-        jCheckBox3.setSelected(true);
-        jCheckBox3.setText("Bloom");
-        jCheckBox3.setToolTipText("Make stuff glow");
-        jCheckBox3.addActionListener(new java.awt.event.ActionListener() {
+        buttonGroup1.add(RADIO_32);
+        RADIO_32.setText("32x32");
+        RADIO_32.setEnabled(false);
+
+        buttonGroup1.add(RADIO_64);
+        RADIO_64.setText("64x64");
+        RADIO_64.setEnabled(false);
+
+        buttonGroup1.add(RADIO_128);
+        RADIO_128.setSelected(true);
+        RADIO_128.setText("128x128");
+        RADIO_128.setEnabled(false);
+
+        buttonGroup1.add(RADIO_256);
+        RADIO_256.setText("256x256");
+        RADIO_256.setEnabled(false);
+
+        SEL_GODRAYS.setText("God Rays");
+        SEL_GODRAYS.setToolTipText("See light shafts from the sun (turn down bloom amount to less than 5 to see)");
+        SEL_GODRAYS.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jCheckBox3ActionPerformed(evt);
+                SEL_GODRAYSActionPerformed(evt);
+            }
+        });
+
+        SEL_BLOOM.setText("Bloom");
+        SEL_BLOOM.setToolTipText("Make stuff glow");
+        SEL_BLOOM.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                SEL_BLOOMActionPerformed(evt);
             }
         });
 
         jLabel1.setText("Bloom Amount:");
 
-        jTextField1.setHorizontalAlignment(javax.swing.JTextField.TRAILING);
-        jTextField1.setText("9.5");
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+        TEXT_BLOOM_AMT.setHorizontalAlignment(javax.swing.JTextField.TRAILING);
+        TEXT_BLOOM_AMT.setText("9.5");
+        TEXT_BLOOM_AMT.setEnabled(false);
+        TEXT_BLOOM_AMT.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+                TEXT_BLOOM_AMTActionPerformed(evt);
             }
         });
 
         jLabel2.setText("Bloom Range:");
 
-        jTextField2.setHorizontalAlignment(javax.swing.JTextField.TRAILING);
-        jTextField2.setText("4");
-        jTextField2.setToolTipText("Increasing this will hurt performance but make things prettier");
+        TEXT_BLOOM_RANGE.setHorizontalAlignment(javax.swing.JTextField.TRAILING);
+        TEXT_BLOOM_RANGE.setText("4");
+        TEXT_BLOOM_RANGE.setToolTipText("Increasing this will hurt performance but make things prettier");
+        TEXT_BLOOM_RANGE.setEnabled(false);
 
-        jCheckBox4.setSelected(true);
-        jCheckBox4.setText("Cel Shading");
-        jCheckBox4.setToolTipText("Draw an outline around things, like a comic book");
+        SEL_CEL.setText("Cel Shading");
+        SEL_CEL.setToolTipText("Draw an outline around things, like a comic book");
+        SEL_CEL.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                SEL_CELActionPerformed(evt);
+            }
+        });
 
         jLabel3.setText("Threshold:");
 
-        jTextField3.setHorizontalAlignment(javax.swing.JTextField.TRAILING);
-        jTextField3.setText("0.4");
+        TEXT_CEL_THRES.setHorizontalAlignment(javax.swing.JTextField.TRAILING);
+        TEXT_CEL_THRES.setText("0.4");
+        TEXT_CEL_THRES.setEnabled(false);
 
         jLabel4.setText("Thickness:");
 
-        jTextField4.setHorizontalAlignment(javax.swing.JTextField.TRAILING);
-        jTextField4.setText("0.0040");
+        TEXT_CEL_THICK.setHorizontalAlignment(javax.swing.JTextField.TRAILING);
+        TEXT_CEL_THICK.setText("0.0040");
+        TEXT_CEL_THICK.setEnabled(false);
 
-        jCheckBox6.setSelected(true);
-        jCheckBox6.setText("Waving Grass");
-        jCheckBox6.setToolTipText("Grass appears to wave in the wind");
+        SEL_GRASS.setText("Waving Grass");
+        SEL_GRASS.setToolTipText("Grass appears to wave in the wind");
 
-        jCheckBox7.setSelected(true);
-        jCheckBox7.setText("Wheat");
-        jCheckBox7.setToolTipText("Wheat appears to wave in the wind");
-        jCheckBox7.addActionListener(new java.awt.event.ActionListener() {
+        SEL_WHEAT.setText("Wheat");
+        SEL_WHEAT.setToolTipText("Wheat appears to wave in the wind");
+        SEL_WHEAT.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jCheckBox7ActionPerformed(evt);
+                SEL_WHEATActionPerformed(evt);
             }
         });
 
-        jCheckBox8.setSelected(true);
-        jCheckBox8.setText("Leaves");
-        jCheckBox8.setToolTipText("Leaves appears to wave in the wind (a little bit buggy)");
+        SEL_LEAVES.setText("Leaves");
+        SEL_LEAVES.setToolTipText("Leaves appears to wave in the wind (a little bit buggy)");
 
-        jCheckBox9.setText("Colorize");
-        jCheckBox9.setToolTipText("Change the colors");
-        jCheckBox9.addActionListener(new java.awt.event.ActionListener() {
+        SEL_COLOR.setText("Colorize");
+        SEL_COLOR.setToolTipText("Change the colors");
+        SEL_COLOR.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jCheckBox9ActionPerformed(evt);
+                SEL_COLORActionPerformed(evt);
             }
         });
 
-        jCheckBox10.setText("World Curvature");
-        jCheckBox10.setToolTipText("Bend the world so it feels like a little planet (Animal Crossing mode)");
+        SEL_CURVE.setSelected(false);
+        SEL_CURVE.setText("World Curvature");
+        SEL_CURVE.setToolTipText("Bend the world so it feels like a little planet (Animal Crossing mode)");
+        SEL_CURVE.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                SEL_CURVEActionPerformed(evt);
+            }
+        });
 
         jLabel6.setText("World Radius:");
 
-        jTextField5.setHorizontalAlignment(javax.swing.JTextField.TRAILING);
-        jTextField5.setText("30.0");
+        TEXT_WORLD_R.setHorizontalAlignment(javax.swing.JTextField.TRAILING);
+        TEXT_WORLD_R.setText("30.0");
+        TEXT_WORLD_R.setEnabled(false);
 
         jLabel7.setText("World Radius Squared:");
 
-        jTextField6.setHorizontalAlignment(javax.swing.JTextField.TRAILING);
-        jTextField6.setText("10000.0");
+        TEXT_WORLD_R2.setHorizontalAlignment(javax.swing.JTextField.TRAILING);
+        TEXT_WORLD_R2.setText("10000.0");
+        TEXT_WORLD_R2.setEnabled(false);
 
         jLabel5.setText("(float)");
 
@@ -563,20 +717,29 @@ public class ConfigUI extends javax.swing.JFrame {
 
         jLabel12.setText("(float)");
 
-        jTextField7.setHorizontalAlignment(javax.swing.JTextField.TRAILING);
-        jTextField7.setText("0.2");
+        TEXT_GOD_EXP.setHorizontalAlignment(javax.swing.JTextField.TRAILING);
+        TEXT_GOD_EXP.setText("0.2");
+        TEXT_GOD_EXP.setEnabled(false);
 
-        jTextField8.setHorizontalAlignment(javax.swing.JTextField.TRAILING);
-        jTextField8.setText("32");
+        TEXT_GOD_SAMPLES.setHorizontalAlignment(javax.swing.JTextField.TRAILING);
+        TEXT_GOD_SAMPLES.setText("32");
+        TEXT_GOD_SAMPLES.setEnabled(false);
 
-        jTextField9.setHorizontalAlignment(javax.swing.JTextField.TRAILING);
-        jTextField9.setText("0.95");
+        TEXT_GOD_DECAY.setHorizontalAlignment(javax.swing.JTextField.TRAILING);
+        TEXT_GOD_DECAY.setText("0.95");
+        TEXT_GOD_DECAY.setEnabled(false);
 
-        jTextField10.setHorizontalAlignment(javax.swing.JTextField.TRAILING);
-        jTextField10.setText("0.5");
+        TEXT_GOD_DENS.setHorizontalAlignment(javax.swing.JTextField.TRAILING);
+        TEXT_GOD_DENS.setText("0.5");
+        TEXT_GOD_DENS.setEnabled(false);
 
-        jCheckBox11.setText("Bump Mapping");
-        jCheckBox11.setToolTipText("Make textures bumpy, if you have a supported texture pack");
+        SEL_BUMP.setText("Bump Mapping");
+        SEL_BUMP.setToolTipText("Make textures bumpy, if you have a supported texture pack");
+        SEL_BUMP.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                SEL_BUMPActionPerformed(evt);
+            }
+        });
 
         jLabel13.setText("Exposure:");
 
@@ -596,15 +759,18 @@ public class ConfigUI extends javax.swing.JFrame {
 
         jLabel21.setText("Red:");
 
-        jTextField11.setText("color.r * 1.3 + 0.01");
+        TEXT_COLOR_R.setText("color.r * 1.3 + 0.01");
+        TEXT_COLOR_R.setEnabled(false);
 
         jLabel22.setText("Green:");
 
-        jTextField12.setText("color.g * 1.2");
+        TEXT_COLOR_G.setText("color.g * 1.2");
+        TEXT_COLOR_G.setEnabled(false);
 
         jLabel23.setText("Blue:");
 
-        jTextField13.setText("color.b * 0.75 + 0.10");
+        TEXT_COLOR_B.setText("color.b * 0.75 + 0.10");
+        TEXT_COLOR_B.setEnabled(false);
 
         jLabel24.setText("Compatible textures can be found on the wiki:");
 
@@ -654,29 +820,11 @@ public class ConfigUI extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(jSeparator2, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(21, 21, 21)
-                                .addComponent(jRadioButton1)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jRadioButton2)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jRadioButton3)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jRadioButton4)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jRadioButton5))
-                            .addComponent(jCheckBox11))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextField14, javax.swing.GroupLayout.PREFERRED_SIZE, 309, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel24)
-                            .addComponent(jLabel25)))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jCheckBox10)
+                            .addComponent(SEL_CURVE)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(17, 17, 17)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -684,8 +832,8 @@ public class ConfigUI extends javax.swing.JFrame {
                                     .addComponent(jLabel6))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jTextField6)
-                                    .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(TEXT_WORLD_R2)
+                                    .addComponent(TEXT_WORLD_R, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel12)
@@ -715,178 +863,200 @@ public class ConfigUI extends javax.swing.JFrame {
                             .addComponent(jLabel39)
                             .addComponent(jLabel40)
                             .addComponent(jLabel38)))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                         .addGap(21, 21, 21)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel23)
                                 .addGap(18, 18, 18)
-                                .addComponent(jTextField13))
+                                .addComponent(TEXT_COLOR_B))
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel22)
                                     .addComponent(jLabel21))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jTextField12)
-                                    .addComponent(jTextField11, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                    .addComponent(TEXT_COLOR_G)
+                                    .addComponent(TEXT_COLOR_R, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE))))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel42)
                             .addComponent(jLabel41)))
-                    .addComponent(jCheckBox9)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
+                    .addComponent(SEL_COLOR, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addGap(21, 21, 21)
-                                        .addComponent(jCheckBox5))
-                                    .addComponent(jCheckBox1))
-                                .addGap(18, 18, 18)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addGap(21, 21, 21)
-                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jLabel15)
-                                            .addComponent(jLabel16)
-                                            .addComponent(jLabel14)
-                                            .addComponent(jLabel13))
-                                        .addGap(40, 40, 40)
-                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                            .addComponent(jTextField10)
-                                            .addComponent(jTextField9)
-                                            .addComponent(jTextField7)
-                                            .addComponent(jTextField8, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addGap(7, 7, 7)
-                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jLabel18)
-                                            .addComponent(jLabel19)
-                                            .addComponent(jLabel20)
-                                            .addComponent(jLabel17)))
-                                    .addComponent(jCheckBox2)))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jCheckBox6)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jCheckBox7)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jCheckBox8)))
+                                .addGap(21, 21, 21)
+                                .addComponent(SEL_HQ_BLUR))
+                            .addComponent(SEL_DOF))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jCheckBox3)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(21, 21, 21)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jLabel1))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jTextField2)
-                                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(4, 4, 4)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel5)
-                                    .addComponent(jLabel8)))
-                            .addComponent(jCheckBox4)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(21, 21, 21)
+                                    .addComponent(jLabel15)
+                                    .addComponent(jLabel16)
+                                    .addComponent(jLabel14)
+                                    .addComponent(jLabel13))
+                                .addGap(40, 40, 40)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(TEXT_GOD_DENS)
+                                    .addComponent(TEXT_GOD_DECAY)
+                                    .addComponent(TEXT_GOD_EXP)
+                                    .addComponent(TEXT_GOD_SAMPLES, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(7, 7, 7)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel18)
+                                    .addComponent(jLabel19)
+                                    .addComponent(jLabel20)
+                                    .addComponent(jLabel17)))
+                            .addComponent(SEL_GODRAYS))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(SEL_BLOOM)
                                     .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addComponent(jLabel4)
+                                        .addGap(21, 21, 21)
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addComponent(jLabel1))
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(jTextField4))
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addComponent(TEXT_BLOOM_RANGE)
+                                            .addComponent(TEXT_BLOOM_AMT, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGap(4, 4, 4)
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jLabel5)
+                                            .addComponent(jLabel8))))
+                                .addGap(18, 18, 18)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(SEL_CEL)
                                     .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addComponent(jLabel3)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                        .addGap(21, 21, 21)
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                                .addComponent(jLabel4)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                                .addComponent(TEXT_CEL_THICK))
+                                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                                .addComponent(jLabel3)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                                .addComponent(TEXT_CEL_THRES, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jLabel10)
+                                            .addComponent(jLabel9)))))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(SEL_GRASS)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel10)
-                                    .addComponent(jLabel9))))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addComponent(SEL_WHEAT)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(SEL_LEAVES))))
+                    .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(21, 21, 21)
+                                .addComponent(RADIO_16)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(RADIO_32)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(RADIO_64)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(RADIO_128)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(RADIO_256))
+                            .addComponent(SEL_BUMP))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel24)
+                            .addComponent(jLabel25)
+                            .addComponent(jTextField14, javax.swing.GroupLayout.PREFERRED_SIZE, 380, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
+                .addContainerGap(25, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jCheckBox1)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jCheckBox5))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addComponent(jCheckBox3)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                            .addComponent(jLabel1)
-                                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(jLabel5))
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                            .addComponent(jLabel2)
-                                            .addComponent(jLabel8)
-                                            .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addComponent(jCheckBox2)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                            .addComponent(jLabel13)
-                                            .addComponent(jTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(jLabel17))
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                            .addComponent(jLabel14)
-                                            .addComponent(jTextField8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(jLabel20))))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jLabel15)
-                                    .addComponent(jTextField9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel18))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jLabel16)
-                                    .addComponent(jTextField10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel19)))))
+                        .addComponent(SEL_DOF)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(SEL_HQ_BLUR))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(89, 89, 89)
-                        .addComponent(jCheckBox4)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(SEL_BLOOM)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jLabel1)
+                                    .addComponent(TEXT_BLOOM_AMT, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel5))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jLabel2)
+                                    .addComponent(jLabel8)
+                                    .addComponent(TEXT_BLOOM_RANGE, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(SEL_GODRAYS)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jLabel13)
+                                    .addComponent(TEXT_GOD_EXP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel17))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jLabel14)
+                                    .addComponent(TEXT_GOD_SAMPLES, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel20)))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(SEL_CEL)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jLabel3)
+                                    .addComponent(TEXT_CEL_THRES, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel9))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jLabel4)
+                                    .addComponent(TEXT_CEL_THICK, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel10))))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel3)
-                            .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel9))
+                            .addComponent(jLabel15)
+                            .addComponent(TEXT_GOD_DECAY, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel18))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel4)
-                            .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel10)
-                            .addComponent(jCheckBox6)
-                            .addComponent(jCheckBox7)
-                            .addComponent(jCheckBox8))))
+                            .addComponent(jLabel16)
+                            .addComponent(TEXT_GOD_DENS, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel19)
+                            .addComponent(SEL_GRASS)
+                            .addComponent(SEL_WHEAT)
+                            .addComponent(SEL_LEAVES))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jCheckBox9)
+                .addComponent(SEL_COLOR)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel21)
-                    .addComponent(jTextField11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(TEXT_COLOR_R, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel41))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel22)
-                    .addComponent(jTextField12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(TEXT_COLOR_G, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel42))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel23)
-                    .addComponent(jTextField13, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                    .addComponent(TEXT_COLOR_B, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(7, 7, 7)
+                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(1, 1, 1)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jCheckBox10)
+                    .addComponent(SEL_CURVE)
                     .addComponent(jLabel26)
                     .addComponent(jLabel29)
                     .addComponent(jLabel32)
@@ -897,12 +1067,12 @@ public class ConfigUI extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel6)
-                            .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(TEXT_WORLD_R, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel11))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel7)
-                            .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(TEXT_WORLD_R2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel12)
                             .addComponent(jLabel28)
                             .addComponent(jLabel31)
@@ -915,41 +1085,43 @@ public class ConfigUI extends javax.swing.JFrame {
                         .addComponent(jLabel39)
                         .addComponent(jLabel33)
                         .addComponent(jLabel36)))
-                .addGap(18, 18, 18)
+                .addGap(5, 5, 5)
+                .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(3, 3, 3)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jCheckBox11)
+                    .addComponent(SEL_BUMP)
                     .addComponent(jLabel24))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jRadioButton1)
-                    .addComponent(jRadioButton2)
-                    .addComponent(jRadioButton3)
-                    .addComponent(jRadioButton4)
-                    .addComponent(jRadioButton5)
+                    .addComponent(RADIO_16)
+                    .addComponent(RADIO_32)
+                    .addComponent(RADIO_64)
+                    .addComponent(RADIO_128)
+                    .addComponent(RADIO_256)
                     .addComponent(jTextField14, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel25)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jButton1.setText("Save");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        BUT_SAVE.setText("Save");
+        BUT_SAVE.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                BUT_SAVEActionPerformed(evt);
             }
         });
 
-        jButton2.setText("Exit");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        BUT_EXIT.setText("Exit");
+        BUT_EXIT.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                BUT_EXITActionPerformed(evt);
             }
         });
 
-        jButton3.setText("Reset Defaults");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        BUT_RESET.setText("Reset Defaults");
+        BUT_RESET.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                BUT_RESETActionPerformed(evt);
             }
         });
 
@@ -963,17 +1135,17 @@ public class ConfigUI extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButton1)
+                        .addComponent(BUT_SAVE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 446, Short.MAX_VALUE)
-                        .addComponent(jButton2))
+                        .addComponent(BUT_RESET)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 593, Short.MAX_VALUE)
+                        .addComponent(BUT_EXIT))
                     .addComponent(jLabel44)
                     .addComponent(jLabel43))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -982,9 +1154,9 @@ public class ConfigUI extends javax.swing.JFrame {
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton3)
-                    .addComponent(jButton2))
+                    .addComponent(BUT_SAVE)
+                    .addComponent(BUT_RESET)
+                    .addComponent(BUT_EXIT))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel44)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -997,41 +1169,49 @@ public class ConfigUI extends javax.swing.JFrame {
 
 
 
-private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+private void BUT_SAVEActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BUT_SAVEActionPerformed
     ConfigUI.this.save();
-}//GEN-LAST:event_jButton1ActionPerformed
+}//GEN-LAST:event_BUT_SAVEActionPerformed
 
-private void jCheckBox2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox2ActionPerformed
+private void SEL_GODRAYSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SEL_GODRAYSActionPerformed
+    TEXT_GOD_EXP.setEnabled(SEL_GODRAYS.isSelected());
+    TEXT_GOD_SAMPLES.setEnabled(SEL_GODRAYS.isSelected());
+    TEXT_GOD_DECAY.setEnabled(SEL_GODRAYS.isSelected());
+    TEXT_GOD_DENS.setEnabled(SEL_GODRAYS.isSelected());
+}//GEN-LAST:event_SEL_GODRAYSActionPerformed
+
+private void SEL_BLOOMActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SEL_BLOOMActionPerformed
 // TODO add your handling code here:
-}//GEN-LAST:event_jCheckBox2ActionPerformed
+    TEXT_BLOOM_AMT.setEnabled(SEL_BLOOM.isSelected());
+    TEXT_BLOOM_RANGE.setEnabled(SEL_BLOOM.isSelected());
+}//GEN-LAST:event_SEL_BLOOMActionPerformed
 
-private void jCheckBox3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox3ActionPerformed
+private void SEL_HQ_BLURActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SEL_HQ_BLURActionPerformed
 // TODO add your handling code here:
-}//GEN-LAST:event_jCheckBox3ActionPerformed
 
-private void jCheckBox5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox5ActionPerformed
+}//GEN-LAST:event_SEL_HQ_BLURActionPerformed
+
+private void SEL_WHEATActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SEL_WHEATActionPerformed
 // TODO add your handling code here:
-}//GEN-LAST:event_jCheckBox5ActionPerformed
+}//GEN-LAST:event_SEL_WHEATActionPerformed
 
-private void jCheckBox7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox7ActionPerformed
+private void SEL_COLORActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SEL_COLORActionPerformed
+    TEXT_COLOR_R.setEnabled(SEL_COLOR.isSelected());
+    TEXT_COLOR_G.setEnabled(SEL_COLOR.isSelected());
+    TEXT_COLOR_B.setEnabled(SEL_COLOR.isSelected());
+}//GEN-LAST:event_SEL_COLORActionPerformed
+
+private void RADIO_16ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RADIO_16ActionPerformed
 // TODO add your handling code here:
-}//GEN-LAST:event_jCheckBox7ActionPerformed
+}//GEN-LAST:event_RADIO_16ActionPerformed
 
-private void jCheckBox9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox9ActionPerformed
+private void TEXT_BLOOM_AMTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TEXT_BLOOM_AMTActionPerformed
 // TODO add your handling code here:
-}//GEN-LAST:event_jCheckBox9ActionPerformed
+}//GEN-LAST:event_TEXT_BLOOM_AMTActionPerformed
 
-private void jRadioButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton1ActionPerformed
-// TODO add your handling code here:
-}//GEN-LAST:event_jRadioButton1ActionPerformed
-
-private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
-// TODO add your handling code here:
-}//GEN-LAST:event_jTextField1ActionPerformed
-
-private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+private void BUT_EXITActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BUT_EXITActionPerformed
     System.exit(0);
-}//GEN-LAST:event_jButton2ActionPerformed
+}//GEN-LAST:event_BUT_EXITActionPerformed
 
     private void jTextField8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField8ActionPerformed
         // TODO add your handling code here:
@@ -1045,9 +1225,31 @@ private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField11ActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void BUT_RESETActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BUT_RESETActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton3ActionPerformed
+    }//GEN-LAST:event_BUT_RESETActionPerformed
+
+    private void SEL_CURVEActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SEL_CURVEActionPerformed
+        TEXT_WORLD_R.setEnabled(SEL_CURVE.isSelected());
+        TEXT_WORLD_R2.setEnabled(SEL_CURVE.isSelected());
+    }//GEN-LAST:event_SEL_CURVEActionPerformed
+
+    private void SEL_CELActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SEL_CELActionPerformed
+        TEXT_CEL_THRES.setEnabled(SEL_CEL.isSelected());
+        TEXT_CEL_THICK.setEnabled(SEL_CEL.isSelected());
+    }//GEN-LAST:event_SEL_CELActionPerformed
+
+    private void SEL_BUMPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SEL_BUMPActionPerformed
+        RADIO_16.setEnabled(SEL_BUMP.isSelected());
+        RADIO_32.setEnabled(SEL_BUMP.isSelected());
+        RADIO_64.setEnabled(SEL_BUMP.isSelected());
+        RADIO_128.setEnabled(SEL_BUMP.isSelected());
+        RADIO_256.setEnabled(SEL_BUMP.isSelected());
+    }//GEN-LAST:event_SEL_BUMPActionPerformed
+
+    private void SEL_DOFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SEL_DOFActionPerformed
+        SEL_HQ_BLUR.setEnabled(SEL_DOF.isSelected());
+    }//GEN-LAST:event_SEL_DOFActionPerformed
 
     /**
      * @param args the command line arguments
@@ -1085,21 +1287,39 @@ private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton BUT_EXIT;
+    private javax.swing.JButton BUT_RESET;
+    private javax.swing.JButton BUT_SAVE;
+    private javax.swing.JRadioButton RADIO_128;
+    private javax.swing.JRadioButton RADIO_16;
+    private javax.swing.JRadioButton RADIO_256;
+    private javax.swing.JRadioButton RADIO_32;
+    private javax.swing.JRadioButton RADIO_64;
+    private javax.swing.JCheckBox SEL_BLOOM;
+    private javax.swing.JCheckBox SEL_BUMP;
+    private javax.swing.JCheckBox SEL_CEL;
+    private javax.swing.JCheckBox SEL_COLOR;
+    private javax.swing.JCheckBox SEL_CURVE;
+    private javax.swing.JCheckBox SEL_DOF;
+    private javax.swing.JCheckBox SEL_GODRAYS;
+    private javax.swing.JCheckBox SEL_GRASS;
+    private javax.swing.JCheckBox SEL_HQ_BLUR;
+    private javax.swing.JCheckBox SEL_LEAVES;
+    private javax.swing.JCheckBox SEL_WHEAT;
+    private javax.swing.JTextField TEXT_BLOOM_AMT;
+    private javax.swing.JTextField TEXT_BLOOM_RANGE;
+    private javax.swing.JTextField TEXT_CEL_THICK;
+    private javax.swing.JTextField TEXT_CEL_THRES;
+    private javax.swing.JTextField TEXT_COLOR_B;
+    private javax.swing.JTextField TEXT_COLOR_G;
+    private javax.swing.JTextField TEXT_COLOR_R;
+    private javax.swing.JTextField TEXT_GOD_DECAY;
+    private javax.swing.JTextField TEXT_GOD_DENS;
+    private javax.swing.JTextField TEXT_GOD_EXP;
+    private javax.swing.JTextField TEXT_GOD_SAMPLES;
+    private javax.swing.JTextField TEXT_WORLD_R;
+    private javax.swing.JTextField TEXT_WORLD_R2;
     private javax.swing.ButtonGroup buttonGroup1;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JCheckBox jCheckBox1;
-    private javax.swing.JCheckBox jCheckBox10;
-    private javax.swing.JCheckBox jCheckBox11;
-    private javax.swing.JCheckBox jCheckBox2;
-    private javax.swing.JCheckBox jCheckBox3;
-    private javax.swing.JCheckBox jCheckBox4;
-    private javax.swing.JCheckBox jCheckBox5;
-    private javax.swing.JCheckBox jCheckBox6;
-    private javax.swing.JCheckBox jCheckBox7;
-    private javax.swing.JCheckBox jCheckBox8;
-    private javax.swing.JCheckBox jCheckBox9;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -1145,25 +1365,9 @@ private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JRadioButton jRadioButton1;
-    private javax.swing.JRadioButton jRadioButton2;
-    private javax.swing.JRadioButton jRadioButton3;
-    private javax.swing.JRadioButton jRadioButton4;
-    private javax.swing.JRadioButton jRadioButton5;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField10;
-    private javax.swing.JTextField jTextField11;
-    private javax.swing.JTextField jTextField12;
-    private javax.swing.JTextField jTextField13;
+    private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JSeparator jSeparator2;
     private javax.swing.JTextField jTextField14;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
-    private javax.swing.JTextField jTextField5;
-    private javax.swing.JTextField jTextField6;
-    private javax.swing.JTextField jTextField7;
-    private javax.swing.JTextField jTextField8;
-    private javax.swing.JTextField jTextField9;
     // End of variables declaration//GEN-END:variables
 
 }
