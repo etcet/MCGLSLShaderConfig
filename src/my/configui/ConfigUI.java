@@ -700,9 +700,11 @@ public class ConfigUI extends javax.swing.JFrame {
         TEXT_WORLD_R.setEnabled(false);
 
         jLabel7.setText("World Radius Squared:");
+        jLabel7.setToolTipText("");
 
         TEXT_WORLD_R2.setHorizontalAlignment(javax.swing.JTextField.TRAILING);
         TEXT_WORLD_R2.setText("10000.0");
+        TEXT_WORLD_R2.setToolTipText("Not necessarily actually the radius squared. Try a negative value for 'inception' mode.");
         TEXT_WORLD_R2.setEnabled(false);
 
         jLabel5.setText("(float)");
@@ -734,7 +736,7 @@ public class ConfigUI extends javax.swing.JFrame {
         TEXT_GOD_DENS.setEnabled(false);
 
         SEL_BUMP.setText("Bump & Specular Mapping");
-        SEL_BUMP.setToolTipText("Make textures bumpy, if you have a supported texture pack");
+        SEL_BUMP.setToolTipText("Make textures bumpy, if you have a supported texture pack. Make sure the resolution match.");
         SEL_BUMP.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 SEL_BUMPActionPerformed(evt);

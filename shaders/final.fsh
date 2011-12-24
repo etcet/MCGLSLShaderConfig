@@ -26,9 +26,9 @@ Bug Fixes by Kool_Kat.
 #define CEL_SHADING_THICKNESS 0.004
 //#define USE_HIGH_QUALITY_BLUR
 //#define CROSSPROCESS
-//#define CROSSPROCESS_R color.r*2.0
-//#define CROSSPROCESS_G color.g*1.2
-//#define CROSSPROCESS_B color.b*0.75+0.10
+//#define CROSSPROCESS_R color.r * 1.3 + 0.01
+//#define CROSSPROCESS_G color.g * 1.2
+//#define CROSSPROCESS_B color.b * 0.75 + 0.10
 
 // DOF Constants - DO NOT CHANGE
 // HYPERFOCAL = (Focal Distance ^ 2)/(Circle of Confusion * F Stop) + Focal Distance
