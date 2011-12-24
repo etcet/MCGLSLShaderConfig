@@ -1226,7 +1226,51 @@ private void BUT_EXITActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
     }//GEN-LAST:event_jTextField11ActionPerformed
 
     private void BUT_RESETActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BUT_RESETActionPerformed
-        // TODO add your handling code here:
+        if (!SEL_DOF.isSelected()) {
+            SEL_DOF.doClick();
+        }
+
+        if (SEL_GODRAYS.isSelected()) {
+            SEL_GODRAYS.doClick();
+        }
+        TEXT_GOD_EXP.setText("0.2");
+        TEXT_GOD_SAMPLES.setText("32");
+        TEXT_GOD_DECAY.setText("0.95");
+        TEXT_GOD_DENS.setText("0.5");
+
+        if (!SEL_BLOOM.isSelected()) {
+            SEL_BLOOM.doClick();
+        }
+        TEXT_BLOOM_AMT.setText("9.5");
+        TEXT_BLOOM_RANGE.setText("4");
+
+        if (!SEL_CEL.isSelected()) {
+            SEL_CEL.doClick();
+        }
+        TEXT_CEL_THRES.setText("0.4");
+        TEXT_CEL_THICK.setText("0.0040");
+
+        SEL_GRASS.setSelected(true);
+        SEL_WHEAT.setSelected(true);
+        SEL_LEAVES.setSelected(true);
+
+        if (SEL_COLOR.isSelected()) {
+            SEL_COLOR.doClick();
+        }
+        TEXT_COLOR_R.setText("color.r * 1.3 + 0.01");
+        TEXT_COLOR_G.setText("color.g * 1.2");
+        TEXT_COLOR_B.setText("color.b * 0.75 + 0.10");
+
+        if (SEL_CURVE.isSelected()) {
+            SEL_CURVE.doClick();
+        }
+        TEXT_WORLD_R.setText("30.0");
+        TEXT_WORLD_R2.setText("10000.0");
+
+        if (SEL_BUMP.isSelected()) {
+            SEL_BUMP.doClick();
+        }
+        RADIO_128.setSelected(true);
     }//GEN-LAST:event_BUT_RESETActionPerformed
 
     private void SEL_CURVEActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SEL_CURVEActionPerformed
