@@ -23,7 +23,6 @@ void main() {
     position.y -= (CURVY_WORLD_RADIUS - sqrt(max(1.0 - distanceSquared / CURVY_WORLD_RADIUS_SQUARED, 0.0)) * CURVY_WORLD_RADIUS);
   #endif
   #ifdef ACID
-    vec4 position = gl_ModelViewMatrix * gl_Vertex;
     float distanceSquared = position.x * position.x + position.z * position.z;
     position.y += 5*sin(distanceSquared*sin(float(worldTime)/143.0)/1000);
     float y = position.y;
