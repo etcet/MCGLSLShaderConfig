@@ -27,7 +27,6 @@ void main() {
   
   #ifdef ACID
     if (gl_Color.a != 0.8) {
-      vec4 position = gl_ModelViewMatrix * gl_Vertex;
       float distanceSquared = position.x * position.x + position.z * position.z;
       position.y += 5*sin(distanceSquared*sin(float(worldTime)/143.0)/1000);
       float y = position.y;
