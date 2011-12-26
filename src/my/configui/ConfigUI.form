@@ -116,6 +116,7 @@
                                           <Component id="SEL_HQ_BLUR" min="-2" max="-2" attributes="0"/>
                                       </Group>
                                       <Component id="SEL_DOF" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Component id="SEL_SSAO" alignment="0" min="-2" max="-2" attributes="0"/>
                                   </Group>
                                   <EmptySpace type="separate" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
@@ -261,6 +262,8 @@
                           <Component id="SEL_DOF" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="SEL_HQ_BLUR" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                          <Component id="SEL_SSAO" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
                           <Group type="103" groupAlignment="1" attributes="0">
@@ -577,7 +580,6 @@
         </Component>
         <Component class="javax.swing.JCheckBox" name="SEL_CURVE">
           <Properties>
-            <Property name="selected" type="boolean" value="false"/>
             <Property name="text" type="java.lang.String" value="World Curvature"/>
             <Property name="toolTipText" type="java.lang.String" value="Bend the world so it feels like a little planet (Animal Crossing mode)"/>
           </Properties>
@@ -775,6 +777,15 @@
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="SEL_ACIDActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JCheckBox" name="SEL_SSAO">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Ambient Occlusion"/>
+            <Property name="toolTipText" type="java.lang.String" value="Better shadows"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="SEL_SSAOActionPerformed"/>
           </Events>
         </Component>
       </SubComponents>

@@ -26,6 +26,13 @@ public class ConfigUI extends javax.swing.JFrame {
             comment("final.fsh", "USE_DOF");
         }
         
+        boolean ssao = SEL_SSAO.isSelected();
+        if (ssao) {
+            uncomment("final.fsh", "SSAO");
+        } else {
+            comment("final.fsh", "SSAO");
+        }
+        
         boolean hq_blur = SEL_HQ_BLUR.isSelected();
         if (hq_blur) {
             uncomment("final.fsh", "USE_HIGH_QUALITY_BLUR");
@@ -391,6 +398,10 @@ public class ConfigUI extends javax.swing.JFrame {
         }
         SEL_HQ_BLUR.setSelected(isUncommented("final.fsh", "USE_HIGH_QUALITY_BLUR"));
 
+        if (isUncommented("final.fsh", "SSAO")) {
+            SEL_SSAO.setSelected(true);
+        }
+        
         if (isUncommented("final.fsh", "GODRAYS")) {
             SEL_GODRAYS.doClick();
         }
@@ -553,6 +564,7 @@ public class ConfigUI extends javax.swing.JFrame {
         jTextField14 = new javax.swing.JTextField();
         jLabel25 = new javax.swing.JLabel();
         SEL_ACID = new javax.swing.JCheckBox();
+        SEL_SSAO = new javax.swing.JCheckBox();
         BUT_SAVE = new javax.swing.JButton();
         BUT_EXIT = new javax.swing.JButton();
         BUT_RESET = new javax.swing.JButton();
@@ -684,7 +696,6 @@ public class ConfigUI extends javax.swing.JFrame {
             }
         });
 
-        SEL_CURVE.setSelected(false);
         SEL_CURVE.setText("World Curvature");
         SEL_CURVE.setToolTipText("Bend the world so it feels like a little planet (Animal Crossing mode)");
         SEL_CURVE.addActionListener(new java.awt.event.ActionListener() {
@@ -790,6 +801,14 @@ public class ConfigUI extends javax.swing.JFrame {
             }
         });
 
+        SEL_SSAO.setText("Ambient Occlusion");
+        SEL_SSAO.setToolTipText("Better shadows");
+        SEL_SSAO.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                SEL_SSAOActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -823,7 +842,8 @@ public class ConfigUI extends javax.swing.JFrame {
                                     .addGroup(jPanel1Layout.createSequentialGroup()
                                         .addGap(21, 21, 21)
                                         .addComponent(SEL_HQ_BLUR))
-                                    .addComponent(SEL_DOF))
+                                    .addComponent(SEL_DOF)
+                                    .addComponent(SEL_SSAO))
                                 .addGap(18, 18, 18)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -931,7 +951,9 @@ public class ConfigUI extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(SEL_DOF)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(SEL_HQ_BLUR))
+                        .addComponent(SEL_HQ_BLUR)
+                        .addGap(18, 18, 18)
+                        .addComponent(SEL_SSAO))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
@@ -1163,6 +1185,8 @@ private void BUT_EXITActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
             SEL_DOF.doClick();
         }
         SEL_HQ_BLUR.setSelected(false);
+        
+        SEL_SSAO.setSelected(true);
 
         if (SEL_GODRAYS.isSelected()) {
             SEL_GODRAYS.doClick();
@@ -1239,6 +1263,10 @@ private void BUT_EXITActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
         }
     }//GEN-LAST:event_SEL_ACIDActionPerformed
 
+    private void SEL_SSAOActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SEL_SSAOActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_SEL_SSAOActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -1294,6 +1322,7 @@ private void BUT_EXITActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
     private javax.swing.JCheckBox SEL_GRASS;
     private javax.swing.JCheckBox SEL_HQ_BLUR;
     private javax.swing.JCheckBox SEL_LEAVES;
+    private javax.swing.JCheckBox SEL_SSAO;
     private javax.swing.JCheckBox SEL_WHEAT;
     private javax.swing.JTextField TEXT_BLOOM_AMT;
     private javax.swing.JTextField TEXT_BLOOM_RANGE;

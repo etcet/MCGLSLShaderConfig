@@ -17,13 +17,12 @@ uniform int worldTime;
 #endif
 
 void main() {
-  #ifdef CURVY_WORLD
   vec4 position = gl_ModelViewMatrix * gl_Vertex;
-
-	float distanceSquared = position.x * position.x + position.z * position.z;
-  position.y -= CURVY_WORLD_RADIUS - sqrt(max(1.0 - distanceSquared / CURVY_WORLD_RADIUS_SQUARED, 0.0)) * CURVY_WORLD_RADIUS;
-	gl_Position = gl_ProjectionMatrix * position;
-  #elif ACID
+  #ifdef CURVY_WORLD
+    float distanceSquared = position.x * position.x + position.z * position.z;
+    position.y -= (CURVY_WORLD_RADIUS - sqrt(max(1.0 - distanceSquared / CURVY_WORLD_RADIUS_SQUARED, 0.0)) * CURVY_WORLD_RADIUS);
+  #endif
+  #ifdef ACID
     vec4 position = gl_ModelViewMatrix * gl_Vertex;
     float distanceSquared = position.x * position.x + position.z * position.z;
     position.y += 5*sin(distanceSquared*sin(float(worldTime)/143.0)/1000);
@@ -34,10 +33,8 @@ void main() {
     position.y = x*sin(om)+y*cos(om);
     position.x = x*cos(om)-y*sin(om);
     position.z = z;
-    gl_Position = gl_ProjectionMatrix * position;
-  #else
-    gl_Position = ftransform();
   #endif
+  gl_Position = gl_ProjectionMatrix * position;
 	
 	color = gl_Color;
 	
