@@ -29,6 +29,11 @@ Bug Fixes by Kool_Kat.
 //#define CROSSPROCESS_R color.r * 1.3 + 0.01
 //#define CROSSPROCESS_G color.g * 1.2
 //#define CROSSPROCESS_B color.b * 0.75 + 0.10
+#define SSAO
+#define SSAO_LUMINANCE 0.5
+#define SSAO_LOOP 8
+#define SSAO_MAX_DEPTH 0.9
+#define SSAO_SAMPLE_DELTA 0.12
 
 // DOF Constants - DO NOT CHANGE
 // HYPERFOCAL = (Focal Distance ^ 2)/(Circle of Confusion * F Stop) + Focal Distance
@@ -53,15 +58,15 @@ uniform float far;
 
 varying vec4 texcoord;
 
-float samples = 0.0;
-vec2 space;
-
 // Standard depth function.
 float getDepth(vec2 coord) {
     return 2.0 * near * far / (far + near - (2.0 * texture2D(gdepth, coord).x - 1.0) * (far - near));
 }
 
 #ifdef USE_DOF
+float samples = 0.0;
+vec2 space;
+
 	vec4 getSampleWithBoundsCheck(vec2 offset) {
 		vec2 coord = texcoord.st + offset;
 		if (coord.s <= 1.0 && coord.s >= 0.0 && coord.t <= 1.0 && coord.t >= 0.0) {
@@ -306,18 +311,130 @@ float getDepth(vec2 coord) {
 
 #ifdef CEL_SHADING
 	float getCellShaderFactor(vec2 coord) {
-		float d = getDepth(coord);
-		vec3 n = normalize(vec3(getDepth(coord+vec2(CEL_SHADING_THICKNESS,0.0))-d,getDepth(coord+vec2(0.0,CEL_SHADING_THICKNESS))-d , CEL_SHADING_THRESHOLD));
-		return n.z; //clamp(n.z*3.0,0.0,1.0);
+    float d = getDepth(coord);
+    vec3 n = normalize(vec3(getDepth(coord+vec2(CEL_SHADING_THICKNESS,0.0))-d,getDepth(coord+vec2(0.0,CEL_SHADING_THICKNESS))-d , CEL_SHADING_THRESHOLD));
+    //clamp(n.z*3.0,0.0,1.0);
+    return n.z; 
 	}
 #endif
 
+#ifdef SSAO
+uniform float viewWidth;
+uniform float viewHeight;
+
+// Alternate projected depth (used by SSAO, probably AA too)
+float getProDepth( vec2 coord ) {
+	float depth = texture2D(gdepth, coord).x;
+	return ( 2.0 * near ) / ( far + near - depth * ( far - near ) );
+}
+
+float znear = near; //Z-near
+float zfar = far; //Z-far
+
+float diffarea = 0.4; //self-shadowing reduction
+float gdisplace = 0.3; //gauss bell center
+
+bool noise = false; //use noise instead of pattern for sample dithering?
+bool onlyAO = false; //use only ambient occlusion pass?
+
+vec2 texCoord = texcoord.st;
+
+vec2 rand(vec2 coord) { //generating noise/pattern texture for dithering
+  float width = 1.0;
+  float height = 1.0;
+  float noiseX = ((fract(1.0-coord.s*(width/2.0))*0.25)+(fract(coord.t*(height/2.0))*0.75))*2.0-1.0;
+  float noiseY = ((fract(1.0-coord.s*(width/2.0))*0.75)+(fract(coord.t*(height/2.0))*0.25))*2.0-1.0;
+
+  if (noise) {
+    noiseX = clamp(fract(sin(dot(coord ,vec2(12.9898,78.233))) * 43758.5453),0.0,1.0)*2.0-1.0;
+    noiseY = clamp(fract(sin(dot(coord ,vec2(12.9898,78.233)*2.0)) * 43758.5453),0.0,1.0)*2.0-1.0;
+  }
+  return vec2(noiseX,noiseY)*0.001;
+}
+
+float compareDepths(float depth1, float depth2, int zfar) {  
+  float garea = 2.0; //gauss bell width    
+  float diff = (depth1 - depth2) * 100.0; //depth difference (0-100)
+  //reduce left bell width to avoid self-shadowing 
+  if (diff < gdisplace) {
+    garea = diffarea;
+  } else {
+    zfar = 1;
+  }
+
+  float gauss = pow(2.7182,-2.0*(diff-gdisplace)*(diff-gdisplace)/(garea*garea));
+  return gauss;
+} 
+
+float calAO(float depth, float dw, float dh) {  
+  float temp = 0;
+  float temp2 = 0;
+  float coordw = texCoord.x + dw/depth;
+  float coordh = texCoord.y + dh/depth;
+  float coordw2 = texCoord.x - dw/depth;
+  float coordh2 = texCoord.y - dh/depth;
+
+  if (coordw  < 1.0 && coordw  > 0.0 && coordh < 1.0 && coordh  > 0.0){
+    vec2 coord = vec2(coordw , coordh);
+    vec2 coord2 = vec2(coordw2, coordh2);
+    int zfar = 0;
+    temp = compareDepths(depth, getProDepth(coord),zfar);
+
+    //DEPTH EXTRAPOLATION:
+    if (zfar > 0){
+      temp2 = compareDepths(getProDepth(coord2),depth,zfar);
+      temp += (1.0-temp)*temp2; 
+    }
+  }
+
+  return temp;  
+}  
+
+vec3 getSSAOFactor() {
+	vec2 noise = rand(texCoord); 
+	float depth = getProDepth(texCoord);
+  if (depth > SSAO_MAX_DEPTH) {
+    return vec3(1.0,1.0,1.0);
+  }
+  float cdepth = texture2D(gdepth,texCoord).g;
+	
+	float ao;
+	float s;
+	
+  float incx = 1.0 / viewWidth * SSAO_SAMPLE_DELTA;
+  float incy = 1.0 / viewHeight * SSAO_SAMPLE_DELTA;
+  float pw = incx;
+  float ph = incy;
+  float aoMult = 3.0;
+  int aaLoop = SSAO_LOOP;
+  float aaDiff = (1.0 + 2.0 / aaLoop);
+  for (int i = 0; i < aaLoop ; i++) {
+    float npw  = (pw + 0.1 * noise.x) / cdepth;
+    float nph  = (ph + 0.1 * noise.y) / cdepth;
+
+    ao += calAO(depth, pw, ph) * aoMult;
+    ao += calAO(depth, pw, -ph) * aoMult;
+    ao += calAO(depth, -pw, ph) * aoMult;
+    ao += calAO(depth, -pw, -ph) * aoMult;
+    pw += incx;
+    ph += incy;
+    aoMult /= aaDiff; 
+    s += 4.0;
+  }
+	
+	ao /= s;
+	ao = 1.0-ao;	
+  ao = clamp(ao, 0.0, 0.5) * 2.0;
+	
+  return vec3(ao);
+}
+#endif
 
 // Main ------------------------------------------------------------
 void main() {
 
 	vec4 color = texture2D(composite, texcoord.st);
-	
+
 #ifdef USE_DOF
 	float depth = getDepth(texcoord.st);
 	    
@@ -354,6 +471,12 @@ void main() {
 	color.rgb *= (getCellShaderFactor(texcoord.st));
 #endif
 
+#ifdef SSAO
+  float lum = dot(color.rgb, vec3(1.0));
+  vec3 luminance = vec3(lum);
+  color.rgb *= mix(getSSAOFactor(), vec3(1.0), luminance * SSAO_LUMINANCE);
+#endif
+#
 #ifdef CROSSPROCESS
 	color.r = CROSSPROCESS_R;
 	color.g = CROSSPROCESS_G;
