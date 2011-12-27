@@ -34,7 +34,7 @@
                       <Component id="BUT_SAVE" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="BUT_RESET" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="562" max="32767" attributes="0"/>
+                      <EmptySpace pref="575" max="32767" attributes="0"/>
                       <Component id="BUT_EXIT" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <Component id="jLabel44" alignment="0" min="-2" max="-2" attributes="0"/>
@@ -170,7 +170,7 @@
                               <Component id="SEL_COLOR" alignment="0" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
                               <Group type="102" alignment="0" attributes="0">
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Component id="SEL_BLOOM" alignment="0" min="-2" max="-2" attributes="0"/>
@@ -239,12 +239,19 @@
                                       <Component id="jLabel11" alignment="0" min="-2" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
-                              <Group type="102" attributes="0">
+                              <Group type="102" alignment="0" attributes="1">
                                   <Component id="SEL_GRASS" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Component id="SEL_WHEAT" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Component id="SEL_LEAVES" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                  <Component id="SEL_PLANTS" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace max="32767" attributes="0"/>
+                                  <Component id="SEL_WATER_WAVES" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                  <Component id="SEL_LAVA_WAVES" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="19" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                       </Group>
@@ -333,6 +340,9 @@
                                       <Component id="SEL_GRASS" alignment="3" min="-2" max="-2" attributes="0"/>
                                       <Component id="SEL_WHEAT" alignment="3" min="-2" max="-2" attributes="0"/>
                                       <Component id="SEL_LEAVES" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="SEL_WATER_WAVES" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="SEL_LAVA_WAVES" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="SEL_PLANTS" alignment="3" min="-2" max="-2" attributes="0"/>
                                   </Group>
                                   <EmptySpace min="-2" pref="1" max="-2" attributes="0"/>
                               </Group>
@@ -566,7 +576,7 @@
         <Component class="javax.swing.JCheckBox" name="SEL_LEAVES">
           <Properties>
             <Property name="text" type="java.lang.String" value="Leaves"/>
-            <Property name="toolTipText" type="java.lang.String" value="Leaves appears to wave in the wind (a little bit buggy)"/>
+            <Property name="toolTipText" type="java.lang.String" value="Leaves appears to wave in the wind"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JCheckBox" name="SEL_COLOR">
@@ -787,6 +797,27 @@
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="SEL_SSAOActionPerformed"/>
           </Events>
+        </Component>
+        <Component class="javax.swing.JCheckBox" name="SEL_WATER_WAVES">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Water"/>
+            <Property name="toolTipText" type="java.lang.String" value="Water waves"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="SEL_WATER_WAVESActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JCheckBox" name="SEL_LAVA_WAVES">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Lava"/>
+            <Property name="toolTipText" type="java.lang.String" value="Water waves"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JCheckBox" name="SEL_PLANTS">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Plants"/>
+            <Property name="toolTipText" type="java.lang.String" value="Flowers blow in the breeze."/>
+          </Properties>
         </Component>
       </SubComponents>
     </Container>

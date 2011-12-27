@@ -205,6 +205,24 @@ public class ConfigUI extends javax.swing.JFrame {
         } else {
             comment("gbuffers_terrain.vsh", "WAVY_LEAVES");
         }
+        boolean waving_plants = SEL_PLANTS.isSelected();
+        if (waving_plants) {
+            uncomment("gbuffers_terrain.vsh", "WAVY_PLANTS");
+        } else {
+            comment("gbuffers_terrain.vsh", "WAVY_PLANTS");
+        }
+        boolean waving_water = SEL_WATER_WAVES.isSelected();
+        if (waving_water) {
+            uncomment("gbuffers_textured_lit.vsh", "WAVY_WATER");
+        } else {
+            comment("gbuffers_textured_lit.vsh", "WAVY_WATER");
+        }
+        boolean waving_lava = SEL_LAVA_WAVES.isSelected();
+        if (waving_lava) {
+            uncomment("gbuffers_terrain.vsh", "WAVY_LAVA");
+        } else {
+            comment("gbuffers_terrain.vsh", "WAVY_LAVA");
+        }
         
     }
     
@@ -426,7 +444,9 @@ public class ConfigUI extends javax.swing.JFrame {
         SEL_GRASS.setSelected(isUncommented("gbuffers_terrain.vsh", "WAVY_GRASS"));
         SEL_WHEAT.setSelected(isUncommented("gbuffers_terrain.vsh", "WAVY_WHEAT"));
         SEL_LEAVES.setSelected(isUncommented("gbuffers_terrain.vsh", "WAVY_LEAVES"));
-
+        SEL_PLANTS.setSelected(isUncommented("gbuffers_terrain.vsh", "WAVY_PLANTS"));
+        SEL_WATER_WAVES.setSelected(isUncommented("gbuffers_textured_lit.vsh", "WAVY_WATER"));
+        SEL_LAVA_WAVES.setSelected(isUncommented("gbuffers_terrain.vsh", "WAVY_LAVA"));
 
         if (isUncommented("final.fsh", "CROSSPROCESS")) {
             SEL_COLOR.doClick();
@@ -565,6 +585,9 @@ public class ConfigUI extends javax.swing.JFrame {
         jLabel25 = new javax.swing.JLabel();
         SEL_ACID = new javax.swing.JCheckBox();
         SEL_SSAO = new javax.swing.JCheckBox();
+        SEL_WATER_WAVES = new javax.swing.JCheckBox();
+        SEL_LAVA_WAVES = new javax.swing.JCheckBox();
+        SEL_PLANTS = new javax.swing.JCheckBox();
         BUT_SAVE = new javax.swing.JButton();
         BUT_EXIT = new javax.swing.JButton();
         BUT_RESET = new javax.swing.JButton();
@@ -686,7 +709,7 @@ public class ConfigUI extends javax.swing.JFrame {
         });
 
         SEL_LEAVES.setText("Leaves");
-        SEL_LEAVES.setToolTipText("Leaves appears to wave in the wind (a little bit buggy)");
+        SEL_LEAVES.setToolTipText("Leaves appears to wave in the wind");
 
         SEL_COLOR.setText("Colorize");
         SEL_COLOR.setToolTipText("Change the colors");
@@ -809,6 +832,20 @@ public class ConfigUI extends javax.swing.JFrame {
             }
         });
 
+        SEL_WATER_WAVES.setText("Water");
+        SEL_WATER_WAVES.setToolTipText("Water waves");
+        SEL_WATER_WAVES.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                SEL_WATER_WAVESActionPerformed(evt);
+            }
+        });
+
+        SEL_LAVA_WAVES.setText("Lava");
+        SEL_LAVA_WAVES.setToolTipText("Water waves");
+
+        SEL_PLANTS.setText("Plants");
+        SEL_PLANTS.setToolTipText("Flowers blow in the breeze.");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -883,7 +920,7 @@ public class ConfigUI extends javax.swing.JFrame {
                                             .addComponent(TEXT_COLOR_R, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                             .addComponent(SEL_COLOR))
                         .addGap(6, 6, 6)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(SEL_BLOOM)
@@ -940,7 +977,14 @@ public class ConfigUI extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(SEL_WHEAT)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(SEL_LEAVES)))))
+                                .addComponent(SEL_LEAVES)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(SEL_PLANTS)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(SEL_WATER_WAVES)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(SEL_LAVA_WAVES)
+                                .addGap(19, 19, 19)))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -1008,7 +1052,10 @@ public class ConfigUI extends javax.swing.JFrame {
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(SEL_GRASS)
                                     .addComponent(SEL_WHEAT)
-                                    .addComponent(SEL_LEAVES))
+                                    .addComponent(SEL_LEAVES)
+                                    .addComponent(SEL_WATER_WAVES)
+                                    .addComponent(SEL_LAVA_WAVES)
+                                    .addComponent(SEL_PLANTS))
                                 .addGap(1, 1, 1)))))
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -1094,7 +1141,7 @@ public class ConfigUI extends javax.swing.JFrame {
                         .addComponent(BUT_SAVE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(BUT_RESET)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 562, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 575, Short.MAX_VALUE)
                         .addComponent(BUT_EXIT))
                     .addComponent(jLabel44)
                     .addComponent(jLabel43)
@@ -1211,6 +1258,9 @@ private void BUT_EXITActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
         SEL_GRASS.setSelected(true);
         SEL_WHEAT.setSelected(true);
         SEL_LEAVES.setSelected(true);
+        SEL_PLANTS.setSelected(true);
+        SEL_WATER_WAVES.setSelected(false);
+        SEL_LAVA_WAVES.setSelected(false);
 
         if (SEL_COLOR.isSelected()) {
             SEL_COLOR.doClick();
@@ -1267,6 +1317,10 @@ private void BUT_EXITActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
         // TODO add your handling code here:
     }//GEN-LAST:event_SEL_SSAOActionPerformed
 
+    private void SEL_WATER_WAVESActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SEL_WATER_WAVESActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_SEL_WATER_WAVESActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -1321,8 +1375,11 @@ private void BUT_EXITActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
     private javax.swing.JCheckBox SEL_GODRAYS;
     private javax.swing.JCheckBox SEL_GRASS;
     private javax.swing.JCheckBox SEL_HQ_BLUR;
+    private javax.swing.JCheckBox SEL_LAVA_WAVES;
     private javax.swing.JCheckBox SEL_LEAVES;
+    private javax.swing.JCheckBox SEL_PLANTS;
     private javax.swing.JCheckBox SEL_SSAO;
+    private javax.swing.JCheckBox SEL_WATER_WAVES;
     private javax.swing.JCheckBox SEL_WHEAT;
     private javax.swing.JTextField TEXT_BLOOM_AMT;
     private javax.swing.JTextField TEXT_BLOOM_RANGE;

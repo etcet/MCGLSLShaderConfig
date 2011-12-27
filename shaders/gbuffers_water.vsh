@@ -41,3 +41,4 @@ void main() {
 
   gl_FogFragCoord = gl_Position.z;
 }
+
